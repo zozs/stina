@@ -4,7 +4,7 @@
 
 STINA is a Slack bot which periodically sends out something Swedish to a given
 Slack channel of choice. This allows people to learn useful (hopefully) things
-in Swedish :flag-se:
+in Swedish :thumbsup:
 
 ## Usage
 
