@@ -1,5 +1,6 @@
 const { RtmClient, CLIENT_EVENTS, WebClient } = require('@slack/client')
 const schedule = require('node-schedule')
+const db = require('./db')
 
 // An access token (from your Slack app or custom integration - usually xoxb)
 const token = process.env.SLACK_TOKEN

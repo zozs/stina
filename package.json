@@ -5,6 +5,7 @@
   "main": "stina.js",
   "dependencies": {
     "@slack/client": "^3.16.0",
+    "lodash.sample": "^4.2.1",
     "node-schedule": "^1.3.0",
     "standard": "^11.0.0"
   },
