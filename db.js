@@ -1,6 +1,6 @@
 const fs = require('fs')
 const { promisify } = require('util')
-const _ = require('lodash.sample')
+const _ = require('lodash')
 
 const dataFilename = process.env.DATA
 
@@ -10,7 +10,8 @@ function parseJSON () {
     return JSON.parse(jsonData)
   } catch (e) {
     return {
-      words: []
+      unseen: [],
+      seen: []
     }
   }
 }
@@ -24,9 +25,15 @@ let data = parseJSON()
 
 module.exports = {
   addWord: async (word) => {
-    data.push(word)
+    data.unseen.push(word)
     await saveJSON(data)
   },
-  allWords: () => data.words,
-  randomWord: () => _.sample(data.words)
+  allUnseenWords: () => data.unseen,
+  popUnseenWord: async () => {
+    let word = _.sample(data.unseen)
+    data.seen.push(word)
+    data.unseen = data.unseen.filter(w => w !== word)
+    await saveJSON(data)
+    return word
+  }
 }

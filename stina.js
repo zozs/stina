@@ -32,7 +32,9 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, () => {
   console.log(`Ready`)
 
   // Schedule announcement
-  schedule.scheduleJob({hour: 14, minute: 36, dayOfWeek: new schedule.Range(1, 5)}, announce)
+  schedule.scheduleJob({hour: 9, minute: 51, dayOfWeek: new schedule.Range(1, 5)}, announce)
+  schedule.scheduleJob({hour: 9, minute: 52, dayOfWeek: new schedule.Range(1, 5)}, announce)
+  schedule.scheduleJob({hour: 9, minute: 53, dayOfWeek: new schedule.Range(1, 5)}, announce)
 })
 
 async function announce () {
@@ -45,8 +47,20 @@ async function announce () {
   for (let c of destinationChannels) {
     // Send a message to each channel we're a member of.
     try {
-      await rtm.sendMessage('Hello, world!', c.id)
-      console.log('Successfully sent announce message.')
+      let word = await db.popUnseenWord()
+      if (word !== undefined) {
+        let message = `*Swedish of the day!*
+>>>
+_Svenska_: ${word.swedish}
+_English_: ${word.english}`
+        await rtm.sendMessage(message, c.id)
+        console.log('Successfully announced word:', JSON.stringify(word))
+      } else {
+        let message = `*Swedish of the day!*
+>>>
+I'm sorry, but there are no unseen words left in the list :cry:`
+        await rtm.sendMessage(message, c.id)
+      }
     } catch (e) {
       console.error('Failed to send message! Got error:', e)
     }
