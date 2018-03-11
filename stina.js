@@ -1,6 +1,7 @@
 const { RtmClient, CLIENT_EVENTS, WebClient } = require('@slack/client')
 const schedule = require('node-schedule')
 const db = require('./db')
+const receiver = require('./receiver')
 
 // An access token (from your Slack app or custom integration - usually xoxb)
 const token = process.env.SLACK_TOKEN
@@ -35,6 +36,31 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, () => {
   schedule.scheduleJob({hour: 9, minute: 51, dayOfWeek: new schedule.Range(1, 5)}, announce)
   schedule.scheduleJob({hour: 9, minute: 52, dayOfWeek: new schedule.Range(1, 5)}, announce)
   schedule.scheduleJob({hour: 9, minute: 53, dayOfWeek: new schedule.Range(1, 5)}, announce)
+})
+
+// Message listener.
+rtm.on('message', event => {
+  // Skip messages that are from a bot or my own user ID
+  if ((event.subtype && event.subtype === 'bot_message') ||
+       (!event.subtype && event.user === rtm.activeUserId)) {
+    return
+  }
+
+  // Only consider messages where we're either the sole recipient (in case of a direct message)
+  // or if we're mentioned ( @stina hej ) in a channel we're in.
+  let messageText = ''
+  if (event.channel && event.channel[0] === 'D') {
+    // this is a direct message to us.
+    messageText = event.text.trim()
+  } else if (event.text && event.text.startsWith(`<@${appData.selfId}>`)) {
+    // someone mentioned us in a message.
+    messageText = event.text.substr(`<@${appData.selfId}>`.length).trim()
+  } else {
+    // something else.
+    return
+  }
+
+  receiver.handleMessage(messageText, event)
 })
 
 async function announce () {
