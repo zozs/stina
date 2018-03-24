@@ -21,6 +21,7 @@ async function saveJSON (dataObj) {
   await promisify(fs.writeFile)(dataFilename, jsonData, 'utf8')
 }
 
+// Parse the data once on startup, then save when changes are made.
 let data = parseJSON()
 
 module.exports = {
