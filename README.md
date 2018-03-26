@@ -2,28 +2,70 @@
 
 **STINA: Swedish Text, Idiom, and Noun Announcer**
 
-STINA is a Slack bot which periodically sends out something Swedish to a given
+STINA is a Slack app which periodically sends out something Swedish to a given
 Slack channel of choice. This allows people to learn useful (hopefully) things
 in Swedish :thumbsup:
 
 ## Usage
 
+You can always call `/stina help` to get a list of available commands. For
+reference, the same list is presented below:
+
+### Word-related commands
+
+- `/stina add`: add a new word to STINA\'s database.
+- `/stina announce`: manually announce a random word from STINA\'s database.
+
+### Other commands
+
+- `/stina stats`: return the number of words in the database.
+
 ## Installation, configuration, and running
 
 ### Installation
+
+First grab the source code.
 
 ```
 $ git clone https://github.com/zozs/stina.git
 $ npm install
 ```
 
+Then add an app to your Slack workspace. Configure it as follows:
+
+#### Interactive components
+
+Add the URL to the server the app is running on, followed by `/interactive`, e.g. `https://example.com/interactive`
+
+#### Slash commands
+
+Add the command `/stina`, with the request url similar to: `https://example.com/commands`
+
+#### Permissions
+
+Add the following scopes:
+
+- `commands`
+- `channels:read`
+- `chat:write:bot`
+- `users:read`
+
+#### Install the app
+
+The install the app, and go to Permissions and note down the generated token. Also look
+up the Verification token.
+
 ### Configuration
 
-Preferably, copy `config/default.json` to `config/local.json` and perform configuration in that file. You will have to modify at least the `token` setting.
+STINA needs some environmental variables configured. You can either supply them as regular
+environmental variables in your shell, or put them in a `.env` file in the same folder as
+`stina.js`.
 
-The configuration file has the following properties:
-
- * `token`: The token for the bot as added to your team.
+ * `SLACK_ACCESS_TOKEN`: STINA's app token
+ * `SLACK_VERIFICATION_TOKEN`: Token to verify that the requests comes from Slack
+ * `PORT`: Port for HTTP server to listen on
+ * `ANNOUNCE_CHANNEL`: Channel ID (e.g. C12345678) in which to post word announcements.
+ * `DATA`: path to json-file with all words.
 
 ### Running
 
