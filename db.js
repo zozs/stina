@@ -30,6 +30,7 @@ module.exports = {
     await saveJSON(data)
   },
   allUnseenWords: () => data.unseen,
+  allSeenWords: () => data.seen,
   popUnseenWord: async () => {
     let word = _.sample(data.unseen)
     if (word !== undefined) {

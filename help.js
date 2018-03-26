@@ -4,7 +4,7 @@ module.exports = async (res) => {
     attachments: [
       {
         title: 'Word-related commands',
-        text: '`/stina add`: add a new word to STINA\'s database.\n`/stina announce`: manually announce a random word from STINA\'s database.'
+        text: '`/stina add`: add a new word to STINA\'s database.\n`/stina announce`: manually announce a random word from STINA\'s database.\n`/stina list`: list all words in STINA\'s database.'
       },
       {
         title: 'Other commands',

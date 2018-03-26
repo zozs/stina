@@ -1,6 +1,7 @@
 const addCommand = require('./add')
 const announceCommand = require('./announce')
 const helpCommand = require('./help')
+const listCommand = require('./list')
 const statsCommand = require('./stats')
 const usageCommand = require('./usage')
 
@@ -26,6 +27,8 @@ module.exports = (app) => {
         } else if (body.text === 'announce') {
           res.send('')
           await announceCommand()
+        } else if (body.text === 'list') {
+          await listCommand(res)
         } else if (body.text === 'stats') {
           await statsCommand(res)
         } else if (body.text === 'help') {
