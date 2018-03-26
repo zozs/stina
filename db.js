@@ -32,9 +32,12 @@ module.exports = {
   allUnseenWords: () => data.unseen,
   popUnseenWord: async () => {
     let word = _.sample(data.unseen)
-    data.seen.push(word)
-    data.unseen = data.unseen.filter(w => w !== word)
-    await saveJSON(data)
+    if (word !== undefined) {
+      data.seen.push(word)
+      data.unseen = data.unseen.filter(w => w !== word)
+      await saveJSON(data)
+    }
     return word
-  }
+  },
+  randomSeenWord: () => _.sample(data.seen)
 }

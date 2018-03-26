@@ -50,5 +50,18 @@ module.exports = {
     title: 'STINA stats',
     text: `Stina currently has ${db.allUnseenWords().length} words in her database.`,
     color: '#74c8ed'
+  }),
+  noWordAttachment: () => ({
+    text: `I'm sorry, but there are no words in the database :cry:`,
+    color: '#74c8ed'
+  }),
+  noUnseenWordAttachment: () => ({
+    text: `I'm sorry, but there are no unseen words in the database :cry:
+Instead, I'm showing an old word again.`,
+    color: '#74c8ed'
+  }),
+  fewLeftAttachment: (count) => ({
+    text: `There are ${count} unseen word(s) left! You should add some more!`,
+    color: '#74c8ed'
   })
 }

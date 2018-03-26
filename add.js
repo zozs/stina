@@ -51,8 +51,8 @@ module.exports = {
     }
 
     // open the dialog by calling the Slack API dialogs.open method
-    let result = await axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
-    console.debug('Opened dialog for adding word. Got result:', result)
+    await axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
+    console.debug('Opened dialog for adding word.')
   },
   handleResponse: async (body) => {
     try {
