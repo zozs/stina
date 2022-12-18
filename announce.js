@@ -6,7 +6,7 @@ const qs = require('querystring')
 module.exports = async () => {
   console.debug('Announcing word.')
 
-  let attachments = []
+  const attachments = []
   let word = await db.popUnseenWord()
   if (word === undefined) {
     console.warn('There are no unseen words left in the database.')
@@ -20,13 +20,13 @@ module.exports = async () => {
     }
   } else {
     attachments.push(formatter.wordAttachment(word))
-    let left = db.allUnseenWords().length
+    const left = db.allUnseenWords().length
     if (left <= 3) {
       attachments.push(formatter.fewLeftAttachment(left))
     }
   }
 
-  let announceMessage = {
+  const announceMessage = {
     token: process.env.SLACK_ACCESS_TOKEN,
     as_user: false,
     text: '*Swedish of the day!*',

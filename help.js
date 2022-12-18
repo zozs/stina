@@ -1,6 +1,6 @@
 module.exports = async (res) => {
-  let helpMessage = {
-    text: `:female-teacher: *STINA - _Swedish Text, Idiom, and Noun Announcer_*`,
+  const helpMessage = {
+    text: ':female-teacher: *STINA - _Swedish Text, Idiom, and Noun Announcer_*',
     attachments: [
       {
         title: 'Word-related commands',

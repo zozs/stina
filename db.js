@@ -6,7 +6,7 @@ const dataFilename = process.env.DATA
 
 function parseJSON () {
   try {
-    let jsonData = fs.readFileSync(dataFilename, 'utf8')
+    const jsonData = fs.readFileSync(dataFilename, 'utf8')
     return JSON.parse(jsonData)
   } catch (e) {
     return {
@@ -17,12 +17,12 @@ function parseJSON () {
 }
 
 async function saveJSON (dataObj) {
-  let jsonData = JSON.stringify(dataObj)
+  const jsonData = JSON.stringify(dataObj)
   await promisify(fs.writeFile)(dataFilename, jsonData, 'utf8')
 }
 
 // Parse the data once on startup, then save when changes are made.
-let data = parseJSON()
+const data = parseJSON()
 
 module.exports = {
   addWord: async (word) => {
@@ -32,7 +32,7 @@ module.exports = {
   allUnseenWords: () => data.unseen,
   allSeenWords: () => data.seen,
   popUnseenWord: async () => {
-    let word = _.sample(data.unseen)
+    const word = _.sample(data.unseen)
     if (word !== undefined) {
       data.seen.push(word)
       data.unseen = data.unseen.filter(w => w !== word)

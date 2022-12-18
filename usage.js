@@ -1,5 +1,5 @@
 module.exports = async (res) => {
-  let usageMessage = {
+  const usageMessage = {
     text: 'I\'m sorry, but I didn\'t understand you. Use `/stina help` to get help.'
   }
   console.debug('Returning usage instructions.')

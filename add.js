@@ -56,13 +56,13 @@ module.exports = {
   },
   handleResponse: async (body) => {
     try {
-      let newWord = body.submission
+      const newWord = body.submission
       newWord.author = body.user.id
       await db.addWord(newWord)
 
       // Success! Tell the user!
-      let wordAttachment = formatter.wordAttachment(newWord)
-      let statAttachment = formatter.statAttachment()
+      const wordAttachment = formatter.wordAttachment(newWord)
+      const statAttachment = formatter.statAttachment()
 
       const successMessage = {
         token: process.env.SLACK_ACCESS_TOKEN,
